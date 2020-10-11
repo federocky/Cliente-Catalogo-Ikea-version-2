@@ -72,13 +72,14 @@ body {
     cursor: pointer;
 }
 
-/*-----------ARTICULO-------------------*/
+/*-----------PRODUCTO-------------------*/
 #producto {
     background-color: #ffffff;
     padding: 20px;
     margin: auto;
     width: 80%;
     visibility: hidden;
+    position: relative;
 }
 
 #producto img {
@@ -101,8 +102,20 @@ body {
     margin-bottom: 20px;
 }
 
+#producto form p {
+    display: inline;
+}
+
 #producto input{
     width: 20px;
+}
+
+#producto #precio {
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    bottom: 60px;
+    right: 20px;
 }
 
 #producto div {
@@ -112,12 +125,20 @@ body {
     padding: 10px;
 }
 
-#producto div:first-of-type {
+#producto #agregarCarro {
     background-color: lawngreen;
 }
 
-#producto div:nth-of-type(2){
+#producto #cancelar{
     background-color: orangered;
+}
+
+
+#producto  #cerrarProducto {
+    background-color: red;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 
 /*---------TARJETA--------------*/

@@ -7,6 +7,7 @@
     <title>Ikea</title>
 </head>
 <body>
+
     <div id="contenedor">
         <img src="img/ikea.jpg" alt="logo">
         <p id="articuloNoEncontrado">Articulo no encontrado</p>
@@ -20,18 +21,22 @@
         <img id="carrito" src="img/shopping-cart.png" alt="carrito">
     </div>
     <div id="clearfix"></div>
+
+
     <section id="producto">
         <img src="img/regalo.png" alt="imagen">
         <h2>Nombre articulo</h2>
+        <div id="cerrarProducto">X</div>
         <p>Una breve descripcion del produicto con sus medidas, caracteristicas y algunas cosas mas, aqui podria coger un lorem ipsun pero no se por que no lo hice.</p>
 
         <form action="#">
-            <input type="submit" value="-">
-            1
-            <input type="submit" value="+">
+            <input class="modificador" type="submit" value="-">
+            <p id="cantidad">1</p>
+            <input class="modificador" type="submit" value="+">
         </form>
-        <div>Agregar al carro</div>
-        <div>Cancelar</div>
+        <p id="precio">2.99</p>
+        <div id="agregarCarro">Agregar al carro</div>
+        <div id="cancelar">Cancelar</div>
     </section>
 
     <section id="caja">
