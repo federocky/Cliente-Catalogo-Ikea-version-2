@@ -1,5 +1,7 @@
 window.addEventListener('load', function(){
 
+ var arrayCarro = [];
+
  var listaProcutos = [
     {
         nombre: 'caja de flores',
@@ -27,29 +29,38 @@ window.addEventListener('load', function(){
     }
 ];
 
+
 var botonBuscar = document.getElementById('buscar');
 var codigoIntroducido;
 var carrito = document.getElementById('carrito');
 var articuloNoEncontrado = document.querySelector('#articuloNoEncontrado');
+var actualizarCarro = document.getElementById('actualizado');
 
 var producto = document.getElementById('producto');
 var cerrarProducto = document.getElementById('cerrarProducto');
+var cancelar = document.getElementById('cancelar');
 var modificador = document.querySelectorAll('.modificador');
-var cantidad = document.querySelector('#producto #cantidad');
+var cantidadProducto = document.querySelector('#producto #cantidad');
+var agregarCarro = document.getElementById('agregarCarro');
 var precioProducto = document.getElementById('precio');
+var nombreProducto = document.querySelector('#producto h2');
+var imagenProducto = document.querySelector('#producto img');
 
 var caja = document.getElementById('caja'); //todo el cuadro del carrito
 var resumenCompra = document.getElementById('resumenCompra'); // el footer donde viene el precio
 var contenedorArticulos = document.getElementById('articulos'); // donde introduzco los articulosghb
-
+var cerrarCaja = document.getElementById('cerrarCaja');
+var precioVariable = document.getElementById('precioVariable');
 
 botonBuscar.addEventListener('click', buscarArticulo);
 carrito.addEventListener('click', mostrarCarro);
 cerrarProducto.addEventListener('click', desapareceProducto);
+cancelar.addEventListener('click', desapareceProducto);
 for (const boton of modificador) {
     boton.addEventListener('click', variarCantidad);
 }
-
+agregarCarro.addEventListener('click', llenarCarro);
+cerrarCaja.addEventListener('click', cerrarCarro);
 
 function buscarArticulo(e){
     var encontrado = false;
@@ -59,26 +70,11 @@ function buscarArticulo(e){
 
     for (const articulo of listaProcutos) {
         if(codigoIntroducido == articulo.codigo) {
-            /* var article = document.createElement('article');
-            var img = document.createElement('img');
-            var nombre = document.createElement('h4');
-            var precio = document.createElement('h3');
 
-            article.id = 'contenedorArticulos';
-            img.src = articulo.img;
-            nombre.appendChild(document.createTextNode(articulo.nombre));
-            precio.appendChild(document.createTextNode(articulo.precio));
-            article.appendChild(img);
-            article.appendChild(nombre);
-            article.appendChild(precio);
-
-            contenedorArticulos.appendChild(article); */
-
-            console.log(producto.children);
-            producto.children[0].src = articulo.img;
-            producto.children[1].textContent = articulo.nombre;
+            nombreProducto.textContent = articulo.nombre; // esto lo voy a usar en agregar al carro
             precioProducto.textContent = articulo.precio;
-            cantidad.textContent = 1;
+            imagenProducto.src = articulo.img;
+            cantidadProducto.textContent = 1;
             producto.style.visibility = 'visible';
 
             encontrado = true;
@@ -94,17 +90,38 @@ function buscarArticulo(e){
     }
 };
 
-var contador = 1;
-function mostrarCarro(){
-    
-    if (contador % 2 === 1)
-        caja.style.visibility = 'visible';
 
-     else caja.style.visibility = 'hidden';
+var total = 0;
+function mostrarCarro() {
+    carrito.style.visibility = 'hidden';
+    contenedorArticulos.innerHTML = '';
+    total = 0;
 
-     contador++;
+    for (const articulo of arrayCarro) {
+        var contador = 1;
+        var article = document.createElement('article');
+        var img = document.createElement('img');
+        var nombre = document.createElement('h4');
+        var precio = document.createElement('h3');
+        article.id = 'contenedorArticulos';
+        var cantidad = document.createElement('p');
 
-     console.log(contador);
+        img.src = articulo.imagen;
+        nombre.appendChild(document.createTextNode(articulo.nombre));
+        cantidad.appendChild(document.createTextNode('x ' + articulo.cantidad));
+        precio.appendChild(document.createTextNode(articulo.precioTotal));
+        article.appendChild(img);
+        article.appendChild(nombre);
+        article.appendChild(precio);
+        article.appendChild(cantidad);
+        contenedorArticulos.appendChild(article);
+
+        total += articulo.precioTotal;
+    }
+
+    precioVariable.textContent = total;
+    caja.style.visibility = 'visible';
+
 }
 
 function desapareceProducto(){
@@ -115,10 +132,30 @@ function desapareceProducto(){
 function variarCantidad(e){
     e.preventDefault();
 
-    if(e.target.value === '+') cantidad.textContent = Number(cantidad.textContent) + 1;
+    if(e.target.value === '+') cantidadProducto.textContent = Number(cantidadProducto.textContent) + 1;
 
-    else if (Number(cantidad.textContent) > 1) cantidad.textContent = Number(cantidad.textContent) -1;
+    else if (Number(cantidadProducto.textContent) > 1) cantidadProducto.textContent = Number(cantidadProducto.textContent) -1;
     
+}
+
+function llenarCarro(){
+    arrayCarro.push({
+        nombre: nombreProducto.textContent,
+        precio: precioProducto.textContent,
+        cantidad: cantidadProducto.textContent,
+        imagen: imagenProducto.src, 
+        precioTotal: (Number(precioProducto.textContent) * Number(cantidadProducto.textContent))
+    });
+    actualizarCarro.style.visibility = 'visible';
+    setTimeout(function(){
+        actualizarCarro.style.visibility = 'hidden';
+    }, 1500);
+    console.log(arrayCarro);
+}
+
+function cerrarCarro(){
+    carrito.style.visibility = 'visible';
+    caja.style.visibility = 'hidden';
 }
 
 });

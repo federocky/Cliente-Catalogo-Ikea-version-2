@@ -148,27 +148,46 @@ body {
     width: 500px;
     background-color: white;
     border-radius: 8px;
-    padding: 20px;
+    padding: 20px 50px;
     top: 20%;
     left: 10%;
     visibility: hidden;
+}
+
+#caja #cerrarCaja {
+    background-color: red;
+    float: right;
+    padding: 5px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    cursor: pointer;
 }
 
 #caja #contenedorArticulos {
     width: 100%;
     position: relative;
     float: left;
+    margin-bottom: 10px;
 }
 
 #caja #contenedorArticulos img {
     width: 50px;
     position: relative;
     float: left;
+    margin-right: 5px;
 }
 
 #caja #contenedorArticulos h4 {
     float: left;
     position: relative;
+}
+
+#caja #contenedorArticulos p {
+    float: left;
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+    margin-left: 12px;
 }
 
 #caja #contenedorArticulos h3 {
@@ -179,6 +198,7 @@ body {
     width: 100%;
     background-color: #000000;
     border-radius: 12px;
+    margin-top: 20px;
 }
 
 #caja p{
