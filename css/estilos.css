@@ -1,0 +1,176 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #003399;
+    float: left;
+    position: relative;
+}
+
+#clearfix {
+    clear: both;
+}
+
+#contenedor {
+    width: 100%;
+    margin: auto;
+    background-color: #ffffff;
+    float: left;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#contenedor img:first-child {
+    width: 100%;
+    max-height: 300px;
+}
+
+#contenedor form {
+    float: left;
+    position: relative;
+    padding-top: 20px;
+}
+
+#contenedor input[type="text"]{
+    height: 30px;
+    margin-left: 30px;
+    border-radius: 10px;
+}
+
+#contenedor input[type="submit"]{
+    height: 30px;
+    width: 70px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#contenedor #articuloNoEncontrado {
+    position: absolute;
+    color: red;
+    margin-left: 25px;
+    visibility: hidden;
+}
+
+#contenedor #actualizado {
+    position: absolute;
+    bottom: 20px;
+    right: 120px;
+    background-color: chartreuse;
+    padding: 7px;
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+#contenedor img:last-child{
+    float: right;
+    position: relative;
+    margin-right: 40px;
+    cursor: pointer;
+}
+
+/*-----------ARTICULO-------------------*/
+#producto {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: auto;
+    width: 80%;
+    visibility: hidden;
+}
+
+#producto img {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    float: left;
+    padding: 20px;
+}
+
+#producto p {
+    margin-top: 20px;
+    position: relative;
+}
+
+#producto form {
+    width: 100%;
+    margin-top: 5px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#producto input{
+    width: 20px;
+}
+
+#producto div {
+    display: inline;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+#producto div:first-of-type {
+    background-color: lawngreen;
+}
+
+#producto div:nth-of-type(2){
+    background-color: orangered;
+}
+
+/*---------TARJETA--------------*/
+
+#caja {
+    position: absolute;
+    width: 500px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    top: 20%;
+    left: 10%;
+    visibility: hidden;
+}
+
+#caja #contenedorArticulos {
+    width: 100%;
+    position: relative;
+    float: left;
+}
+
+#caja #contenedorArticulos img {
+    width: 50px;
+    position: relative;
+    float: left;
+}
+
+#caja #contenedorArticulos h4 {
+    float: left;
+    position: relative;
+}
+
+#caja #contenedorArticulos h3 {
+    float: right;
+}
+
+#caja #resumenCompra {
+    width: 100%;
+    background-color: #000000;
+    border-radius: 12px;
+}
+
+#caja p{
+    display: inline;
+    font-size: 25px;
+    color: #fff;
+}
+
+#caja p:first-child {
+    padding-left: 30px;
+}
+
+#caja p:last-child {
+    float: right;
+    padding-right: 20px;
+}
