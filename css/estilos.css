@@ -9,18 +9,24 @@ body {
     background-color: #003399;
     float: left;
     position: relative;
+    width: 100%;
 }
 
 #clearfix {
     clear: both;
 }
 
+#otro {
+    width: 500px;
+    margin: auto;
+}
+
 #contenedor {
     width: 100%;
     margin: auto;
     background-color: #ffffff;
-    float: left;
     position: relative;
+    float: left;
     margin-bottom: 20px;
 }
 
@@ -77,9 +83,10 @@ body {
     background-color: #ffffff;
     padding: 20px;
     margin: auto;
-    width: 80%;
+    width: 85%;
     visibility: hidden;
     position: relative;
+    border-radius: 15px;
 }
 
 #producto img {
@@ -150,8 +157,8 @@ body {
     border-radius: 8px;
     padding: 20px 50px;
     top: 20%;
-    left: 10%;
     visibility: hidden;
+    margin: auto;
 }
 
 #caja #cerrarCaja {
@@ -214,4 +221,13 @@ body {
 #caja p:last-child {
     float: right;
     padding-right: 20px;
+}
+
+.quitarProducto {
+    width: 10px;
+    background-color: rgb(255, 123, 0);
+    position: absolute;
+    right: -20px;
+    text-align: center;
+    cursor: pointer;
 }

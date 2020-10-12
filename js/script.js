@@ -6,25 +6,25 @@ window.addEventListener('load', function(){
     {
         nombre: 'caja de flores',
         precio: 3.99,
-        img: '../img/cajonFlores.jpg',
+        img: 'img/cajonFlores.jpg',
         codigo: 1,
     },
     {
         nombre: 'cafe',
         precio: 1.99,
-        img: '../img/cafe.jpg',
+        img: 'img/cafe.jpg',
         codigo: 2
     },
     {
         nombre: 'especias',
         precio: 5.99,
-        img: '../img/especias.jpg',
+        img: 'img/especias.jpg',
         codigo: 3
     },
     {
         nombre: 'regalo',
         precio: 20.50,
-        img: '../img/regalo.png',
+        img: 'img/regalo.png',
         codigo: 4
     }
 ];
@@ -51,6 +51,7 @@ var resumenCompra = document.getElementById('resumenCompra'); // el footer donde
 var contenedorArticulos = document.getElementById('articulos'); // donde introduzco los articulosghb
 var cerrarCaja = document.getElementById('cerrarCaja');
 var precioVariable = document.getElementById('precioVariable');
+var quitarProductoCarro = document.querySelectorAll('.quitarProducto');
 
 botonBuscar.addEventListener('click', buscarArticulo);
 carrito.addEventListener('click', mostrarCarro);
@@ -105,6 +106,9 @@ function mostrarCarro() {
         var precio = document.createElement('h3');
         article.id = 'contenedorArticulos';
         var cantidad = document.createElement('p');
+        var cerrarProducto = document.createElement('div');
+        cerrarProducto.appendChild(document.createTextNode('x'));
+        cerrarProducto.classList = 'quitarProducto';
 
         img.src = articulo.imagen;
         nombre.appendChild(document.createTextNode(articulo.nombre));
@@ -114,6 +118,7 @@ function mostrarCarro() {
         article.appendChild(nombre);
         article.appendChild(precio);
         article.appendChild(cantidad);
+        article.appendChild(cerrarProducto);
         contenedorArticulos.appendChild(article);
 
         total += articulo.precioTotal;
@@ -121,6 +126,12 @@ function mostrarCarro() {
 
     precioVariable.textContent = total;
     caja.style.visibility = 'visible';
+    quitarProductoCarro = document.querySelectorAll('.quitarProducto');//TODO:
+    for (const iterator of quitarProductoCarro) {
+        iterator.addEventListener('click', quitarUnProducto);
+    }
+    console.log(quitarProductoCarro); //FIXME: quitar luego
+
 
 }
 
@@ -139,23 +150,44 @@ function variarCantidad(e){
 }
 
 function llenarCarro(){
-    arrayCarro.push({
-        nombre: nombreProducto.textContent,
-        precio: precioProducto.textContent,
-        cantidad: cantidadProducto.textContent,
-        imagen: imagenProducto.src, 
-        precioTotal: (Number(precioProducto.textContent) * Number(cantidadProducto.textContent))
-    });
+    var flag = false;
+
+    for (const articulo of arrayCarro) {
+        if (articulo.codigo == codigoIntroducido) {
+            flag = true;
+            articulo.cantidad = Number(articulo.cantidad) + Number(cantidadProducto.textContent);
+            articulo.precioTotal = Number(articulo.precioTotal) + Number(precioProducto.textContent);
+        }
+    }
+
+    if (!flag) {
+
+        arrayCarro.push({
+            nombre: nombreProducto.textContent,
+            precio: precioProducto.textContent,
+            cantidad: cantidadProducto.textContent,
+            imagen: imagenProducto.src, 
+            precioTotal: (Number(precioProducto.textContent) * Number(cantidadProducto.textContent)),
+            codigo: codigoIntroducido
+        });
+    }
+
     actualizarCarro.style.visibility = 'visible';
     setTimeout(function(){
         actualizarCarro.style.visibility = 'hidden';
     }, 1500);
-    console.log(arrayCarro);
+    
 }
 
 function cerrarCarro(){
     carrito.style.visibility = 'visible';
     caja.style.visibility = 'hidden';
 }
+
+
+function quitarUnProducto(e){
+    //FIXME: esta complicada la cosa. tengo que recuperar el codigo del articulo. Eliminarlo del array y volver a cargar la funcion mostrar carro.
+}
+
 
 });
