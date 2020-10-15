@@ -1,8 +1,8 @@
 window.addEventListener('load', function(){
 
- var arrayCarro = [];
+ var arrayCarro = []; // Donde se almacenaran los productos comprados
 
- var listaProcutos = [
+ var listaProcutos = [ // es el almacen de la tienda
     {
         nombre: 'caja de flores',
         precio: 3.99,
@@ -30,16 +30,19 @@ window.addEventListener('load', function(){
 ];
 
 
-var botonBuscar = document.getElementById('buscar');
+/**
+ * Capturando los diferentes elementos del DOM
+ */
+var botonBuscar = document.getElementById('buscar'); 
 var codigoIntroducido;
-var carrito = document.getElementById('carrito');
-var articuloNoEncontrado = document.querySelector('#articuloNoEncontrado');
-var actualizarCarro = document.getElementById('actualizado');
+var carrito = document.getElementById('carrito'); //imagen del carrito
+var articuloNoEncontrado = document.querySelector('#articuloNoEncontrado'); //Mensaje de error en caso de introducir un codigo incorrecto
+var actualizarCarro = document.getElementById('actualizado');  // Mensaje que aparece al introducir un articulo en el carro
 
-var producto = document.getElementById('producto');
+var producto = document.getElementById('producto'); // es la tarjeta contenedora del producto
 var cerrarProducto = document.getElementById('cerrarProducto');
 var cancelar = document.getElementById('cancelar');
-var modificador = document.querySelectorAll('.modificador');
+var modificador = document.querySelectorAll('.modificador'); // - y + que actualizan la cantidad de productos para comprar
 var cantidadProducto = document.querySelector('#producto #cantidad');
 var agregarCarro = document.getElementById('agregarCarro');
 var precioProducto = document.getElementById('precio');
@@ -47,12 +50,17 @@ var nombreProducto = document.querySelector('#producto h2');
 var imagenProducto = document.querySelector('#producto img');
 
 var caja = document.getElementById('caja'); //todo el cuadro del carrito
-var resumenCompra = document.getElementById('resumenCompra'); // el footer donde viene el precio
-var contenedorArticulos = document.getElementById('articulos'); // donde introduzco los articulosghb
+//var resumenCompra = document.getElementById('resumenCompra'); // el footer donde viene el precio
+var contenedorArticulos = document.getElementById('articulos'); // donde introduzco los articulos
 var cerrarCaja = document.getElementById('cerrarCaja');
-var precioVariable = document.getElementById('precioVariable');
-var quitarProductoCarro = document.querySelectorAll('.quitarProducto');
+var precioVariable = document.getElementById('precioVariable'); // precio total
+var quitarProductoCarro = document.querySelectorAll('.quitarProducto'); 
 
+
+
+/**
+ * Ponemos las variables necesarias a la escucha de un evento
+ */
 botonBuscar.addEventListener('click', buscarArticulo);
 carrito.addEventListener('click', mostrarCarro);
 cerrarProducto.addEventListener('click', desapareceProducto);
@@ -63,6 +71,15 @@ for (const boton of modificador) {
 agregarCarro.addEventListener('click', llenarCarro);
 cerrarCaja.addEventListener('click', cerrarCarro);
 
+
+/**
+ * 
+ * Implementeacion de las funciones
+ */
+
+/**
+ * Funcion que busca el articulo dentro del almacen y almacena los valores en caso de ser necesaria su utilizacion posterior.
+ */
 function buscarArticulo(e){
     var encontrado = false;
 
@@ -93,13 +110,18 @@ function buscarArticulo(e){
 
 
 var total = 0;
+
+/**
+ * Funcion que nos muestra una ventana con los elementos que tenemos en nuestro carrito. 
+ * 
+ */
 function mostrarCarro() {
     carrito.style.visibility = 'hidden';
     contenedorArticulos.innerHTML = '';
-    total = 0;
+    total = 0; // precio total mostrado por pantalla. 
 
     for (const articulo of arrayCarro) {
-        var contador = 1;
+        //var contador = 0;
         var article = document.createElement('article');
         var img = document.createElement('img');
         var nombre = document.createElement('h4');
@@ -108,7 +130,8 @@ function mostrarCarro() {
         var cantidad = document.createElement('p');
         var cerrarProducto = document.createElement('div');
         cerrarProducto.appendChild(document.createTextNode('x'));
-        cerrarProducto.classList = 'quitarProducto';
+        cerrarProducto.classList = 'quitarProducto'; // necesario para ponerlo a la escucha de un evento. 
+        cerrarProducto.id = articulo.codigo; // este id sera utilizado en caso de necesitar eliminar este articulo del carro. 
 
         img.src = articulo.imagen;
         nombre.appendChild(document.createTextNode(articulo.nombre));
@@ -124,22 +147,28 @@ function mostrarCarro() {
         total += articulo.precioTotal;
     }
 
-    precioVariable.textContent = total;
-    caja.style.visibility = 'visible';
-    quitarProductoCarro = document.querySelectorAll('.quitarProducto');//TODO:
+    precioVariable.textContent = total.toFixed(2); // moestramos por pantalla el precio con solo dos decimales
+    caja.style.visibility = 'visible'; // mostramos el elemtno contenedor
+
+    quitarProductoCarro = document.querySelectorAll('.quitarProducto');//Selecciono todas las cajitas y las pongo a la escucha
     for (const iterator of quitarProductoCarro) {
         iterator.addEventListener('click', quitarUnProducto);
     }
-    console.log(quitarProductoCarro); //FIXME: quitar luego
-
 
 }
 
+
+/**
+ * Funcion que hace desaparecer la ventana contenedora del producto, desencadenado tanto al pulsar el boton cancelar como al pulsar el boton de cerrar de la esquina superior derecha
+ */
 function desapareceProducto(){
     producto.style.visibility = 'hidden';
 }
 
 
+/**
+ * Function que altera la cantidad de productos que el cliente desea comprar al pulsar + o -
+ */
 function variarCantidad(e){
     e.preventDefault();
 
@@ -149,6 +178,10 @@ function variarCantidad(e){
     
 }
 
+
+/**
+ * Funcion que agrega un producto al carro. En caso de que este ya exista actualiza su cantidad. 
+ */
 function llenarCarro(){
     var flag = false;
 
@@ -172,6 +205,7 @@ function llenarCarro(){
         });
     }
 
+    //Muestro el mensaje de carro actualizado y lo cierro automaticamente. 
     actualizarCarro.style.visibility = 'visible';
     setTimeout(function(){
         actualizarCarro.style.visibility = 'hidden';
@@ -179,14 +213,25 @@ function llenarCarro(){
     
 }
 
+
+/**
+ * Cierra la ventana contenedora de articulos en el carrito
+ */
 function cerrarCarro(){
     carrito.style.visibility = 'visible';
     caja.style.visibility = 'hidden';
 }
 
-
+/**
+ * Funcion que elimina el producto seleccinado del carrito.
+ */
 function quitarUnProducto(e){
-    //FIXME: esta complicada la cosa. tengo que recuperar el codigo del articulo. Eliminarlo del array y volver a cargar la funcion mostrar carro.
+    for (const art of arrayCarro) {
+        if(art.codigo == e.target.id){
+            arrayCarro.splice(arrayCarro.indexOf(art), 1);
+            mostrarCarro();
+        }
+    }
 }
 
 
